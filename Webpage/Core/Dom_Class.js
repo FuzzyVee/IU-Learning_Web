@@ -53,10 +53,18 @@ class dom extends dom_table {
 		@param {string} contenido html
 		@param {string} id del div donde colocar el contenido
 	*/
-	fillform(formdata, idform){
-		document.getElementById(idform).innerHTML = formdata;
-		document.getElementById(idform).style.display = 'block';
+	fillform(formdata, idform) {
+	    let formElement = document.getElementById(idform);
+	
+	    if (!formElement) {
+	        console.error(`[fillform Error] Could not find any HTML element with id="${idform}". Please check your HTML tags or the id passed to fillform().`);
+	        return;
+	    }
+	
+	    formElement.innerHTML = formdata;
+	    formElement.style.display = 'block';
 	}
+
 
 	/**
 	 * crea un elemento del DOM y lo devuelve

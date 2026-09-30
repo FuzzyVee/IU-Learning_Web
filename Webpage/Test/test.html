@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejecución de Pruebas Batería - ET1</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; }
+        h1 { color: #333; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+        th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; font-size: 0.9rem; }
+        th { background-color: #0275d8; color: white; }
+        .pass { background-color: #d4edda; color: #155724; font-weight: bold; }
+        .fail { background-color: #f8d7da; color: #721c24; font-weight: bold; }
+        #hidden-form-container { display: none; }
+        button { padding: 10px 20px; font-size: 1rem; cursor: pointer; background-color: #28a745; color: white; border: none; border-radius: 4px; }
+    </style>
+
+    <!-- Core classes loading order -->
+    <script src="../Core/Validations_Class.js"></script>
+    <script src="../Core/Dom_table_Class.js"></script>
+    <script src="../Core/Dom_Class.js"></script>
+    <script src="../app/persona_Class.js"></script>
+
+    <!-- Generated test file containing persona_def_tests & persona_pruebas -->
+    <script src="./persona_tests.js"></script>
+</head>
+
+<body>
+
+    <h1>Batería de Pruebas Automáticas - Entidad Persona</h1>
+    <a href="index.html">← Volver al Formulario Principal</a>
+    <br><br>
+
+    <button type="button" onclick="runAllTests()">Ejecutar Todas las Pruebas</button>
+
+    <div id="hidden-form-container">
+        <section id="IU_form">
+            <input type="text" id="dni">
+            <span id="span_error_dni"><span id="error_dni"></span></span>
+
+            <input type="text" id="nombre_persona">
+            <span id="span_error_nombre_persona"><span id="error_nombre_persona"></span></span>
+
+            <input type="text" id="apellidos_persona">
+            <span id="span_error_apellidos_persona"><span id="error_apellidos_persona"></span></span>
+
+            <input type="text" id="fechaNacimiento_persona">
+            <span id="span_error_fechaNacimiento_persona"><span id="error_fechaNacimiento_persona"></span></span>
+
+            <input type="text" id="direccion_persona">
+            <span id="span_error_direccion_persona"><span id="error_direccion_persona"></span></span>
+
+            <input type="text" id="telefono_persona">
+            <span id="span_error_telefono_persona"><span id="error_telefono_persona"></span></span>
+
+            <input type="email" id="email_persona">
+            <span id="span_error_email_persona"><span id="error_email_persona"></span></span>
+
+            <input type="file" id="foto_persona">
+            <span id="span_error_foto_persona"><span id="error_foto_persona"></span></span>
+
+            <button id="submit_button"></button>
+        </section>
+    </div>
+
+    <!-- Results Table -->
+    <table id="results-table">
+        <thead>
+            <tr>
+                <th>Prueba </th>
+                <th>Campo</th>
+                <th>Acción</th>
+                <th>Valor Probado</th>
+                <th>Resultado Esperado</th>
+                <th>Resultado Obtenido</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody id="results-body">
+            <tr>
+                <td colspan="7">Haz clic en "Ejecutar Todas las Pruebas" para iniciar el test.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+    function runAllTests() {
+        const persona_obj = new persona();
+        const tbody = document.getElementById('results-body');
+        tbody.innerHTML = ''; // Clear previous results
+
+        if (typeof persona_pruebas === 'undefined' || !Array.isArray(persona_pruebas)) {
+            alert('Error: persona_pruebas no está definido. Asegúrate de incluir persona_tests.js');
+            return;
+        }
+
+        persona_pruebas.forEach(testCase => {
+            // Unpack row structure from persona_pruebas
+            // Array(entidad, campo, numTest, numPrueba, accion, valorProbado, resultadoEsperado)
+            const [entidad, campo, numTest, numPrueba, accion, valorProbado, resultadoEsperado] = testCase;
+
+            // 1. Inject test value into DOM field
+            const targetInput = document.getElementById(campo);
+            if (targetInput && typeof valorProbado === 'object' && valorProbado !== null) {
+                targetInput.value = valorProbado[campo] !== undefined ? valorProbado[campo] : '';
+            }
+
+            // 2. Determine validation method name dynamically
+            const methodName = `${accion}_${campo}_validation`;
+            let resultadoObtenido = 'MÉTODO NO ENCONTRADO';
+
+            if (typeof persona_obj[methodName] === 'function') {
+                resultadoObtenido = persona_obj[methodName]();
+            }
+
+            // 3. Compare obtained result with expected result
+            const isSuccess = (resultadoObtenido === resultadoEsperado);
+
+            // 4. Append result row to table
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${numPrueba} (Test ${numTest})</td>
+                <td>${campo}</td>
+                <td>${accion}</td>
+                <td><code>${JSON.stringify(valorProbado)}</code></td>
+                <td><code>${JSON.stringify(resultadoEsperado)}</code></td>
+                <td><code>${JSON.stringify(resultadoObtenido)}</code></td>
+                <td class="${isSuccess ? 'pass' : 'fail'}">${isSuccess ? 'PASSED' : 'FAILED'}</td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+    </script>
+    
+
+</body>
+<script src="./test_app.js"></script>
+
+</html>

@@ -59,7 +59,7 @@ body {
 #error {
   display: none;
   background: rgba(245, 158, 11, 0.1);
-  border: 1px solid var(--busy);
+  border: 2px solid var(--busy);
   color: var(--busy);
   border-radius: 12px;
   padding: 14px;
@@ -76,6 +76,10 @@ input, button, select, textarea {
   font-size: 0.9rem;
   margin-bottom: 12px;
     
+}
+
+textarea {
+    margin-bottom: auto;
 }
 
 .nav-link {
@@ -105,6 +109,14 @@ input, button, select, textarea {
   font-size: 0.8rem;
   background: var(--accent);
 
+}
+
+.flexible_textarea {
+    display: flex;
+    field-sizing: content;
+    min-width: 300px;
+    max-width: 400px;
+    resize: none;    
 }
 
 input[type="file"] {
@@ -155,15 +167,15 @@ input[type="file"]::-webkit-file-upload-button {
     padding: 6px;
     box-sizing: border-box;
     margin-bottom: 12px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .form-group span[id^="span_error_"] {
     color: #ff4d4d;
     font-size: 0.85rem;
-    margin-top: 6px;
-}
-
-
+    margin-top: -6px;
 }
 
 .form-group {
@@ -195,7 +207,7 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .error_span {
-    color: #d9534f;
+    color: #ffe81d;
     font-size: 0.85rem;
     font-weight: 600;
 }

@@ -15,8 +15,8 @@ class Validations{
 				switch (elemento.type){
 					case 'number':
 					case 'email':
-					case 'text':
-						let valorelemento = elemento.value.trim();
+					case 'text' || 'textarea' || 'fecha':
+						let valorelemento = elemento.value;
 						if (valorelemento.length < minsize){
 							return false;
 						}

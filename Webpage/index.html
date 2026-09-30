@@ -28,69 +28,6 @@
 		</nav>
 	</aside>
 	<section id="IU_form">
-		<article>
-			<h2>Alta de Persona</h2>
-			<form action="http://193.147.87.202/procesaform.php" method="POST" enctype="multipart/form-data" 
-			onsubmit="if (typeof entidad.ADD_submit_persona() === 'object') {return false} else {return true};">
-
-				<!-- DNI -->
-				<label for="dni">DNI:</label>
-				<input type="text" id="dni" name="dni" onblur="return entidad.ADD_dni_validation();">
-				<span id="error_dni" class="error_span"></span>
-                <br><br>
-				
-                <!-- Nombre -->
-				<label for="nombre_persona">Nombre:</label>
-				<input type="text" id="nombre_persona" name="nombre_persona"
-							onblur="return entidad.ADD_nombre_persona_validation();">
-						<span id="error_nombre_persona" class="error_span"></span>
-				<br><br>
-
-				<!-- Apellidos -->
-				<label for="apellidos_persona">Apellidos:</label>
-				<input type="text" id="apellidos_persona" name="apellidos_persona" 
-					onblur="return entidad.ADD_apellidos_persona_validation();">
-				<span id="error_apellidos_persona" class="error_span"></span>
-				<br><br>
-
-				<!-- Fecha de Nacimiento -->
-				<label for="fechaNacimiento_persona">Fecha Nacimiento:</label>
-				<input type="date" id="fechaNacimiento_persona" name="fechaNacimiento_persona"
-					onchange="return entidad.ADD_fechaNacimiento_persona_validation();">
-				<span id="error_fechaNacimiento_persona" class="error_span"></span>
-				<br><br>
-
-				<!-- Dirección -->
-				<label for="direccion_persona">Dirección:</label>
-				<input type="text" id="direccion_persona" name="direccion_persona"
-					onblur="return entidad.ADD_direccion_persona_validation();">
-				<span id="error_direccion_persona" class="error_span"></span>
-				<br><br>
-
-				<!-- Teléfono -->
-				<label for="telefono_persona">Teléfono:</label>
-				<input type="text" id="telefono_persona" name="telefono_persona"
-					onblur="return entidad.ADD_telefono_persona_validation();">
-				<span id="error_telefono_persona" class="error_span"></span>
-				<br><br>
-
-				<!-- Email -->
-				<label for="email_persona">Email:</label>
-				<input type="email" id="email_persona" name="email_persona"
-					onblur="return entidad.ADD_email_persona_validation();">
-				<span id="error_email_persona" class="error_span"></span>
-				<br><br>
-
-				<!-- Foto -->
-				<label for="foto_persona">Foto:</label>
-				<input type="file" id="foto_persona" name="foto_persona"
-					onchange="return entidad.ADD_foto_persona_validation();">
-				<span id="error_foto_persona" class="error_span"></span>
-				<br><br>
-
-				<button type="submit">Enviar Persona</button>
-			</form>
-		</article>
 	</section>
 	<footer>
 		<p>Interfaces de Usuario - Curso 2026-2027</p>
